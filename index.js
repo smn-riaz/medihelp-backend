@@ -15,7 +15,7 @@ app.use(cors());
 const port = 5050;
 
 app.get('/', (req, res) => {
-    res.send("Hello from Hospital Management Project")
+    res.send("Hello from Hospital Management MediHelp")
 })
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -67,7 +67,6 @@ client.connect(err => {
         )
         .then(result => {
             res.send(result)
-            // console.log(result);
         })
         .catch(err => {
                 res.send(err)
@@ -98,7 +97,6 @@ client.connect(err => {
 
     app.post('/registerPatient', (req, res) => {
         const patient = req.body;
-        // console.log(patient);
         patientsRegisteredCollection.insertOne(patient)
             .then(result => {
                 res.send(result)
@@ -128,7 +126,7 @@ client.connect(err => {
         patientsRegisteredCollection.find()
             .toArray((err, patients) => {
                 res.send(patients)
-                // console.log(patients);
+             
             })
     })
 
@@ -174,12 +172,10 @@ client.connect(err => {
             },
             (err, result) => {
                 if (err) {
-                    // console.log(err);
                     res.status(500).send({ message: err })
                 }
                 else {
                     res.send(result);
-                    // console.log(result);
                 }
             }
         )
