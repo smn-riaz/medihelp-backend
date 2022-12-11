@@ -15,7 +15,7 @@ app.use(cors());
 const port = 5050;
 
 app.get('/', (req, res) => {
-    res.send("Hello from Hospital Management MediHelp")
+    res.send("Hello from Hospital Management MediH")
 })
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -97,11 +97,9 @@ client.connect(err => {
 
     app.post('/registerPatient', (req, res) => {
         const patient = req.body;
-        console.log(patient)
         patientsRegisteredCollection.insertOne(patient)
             .then(result => {
                 res.send(result)
-                console.log(result);
             })
             .catch(err => {
                 res.send(err)
@@ -138,18 +136,16 @@ client.connect(err => {
     
 
 
-    app.post('/patientInformation', (req, res) => {
+    app.post('/patientInformation', async(req, res) => {
         const patientInfo = req.body;
         
-        patientsRegisteredCollection.findOne({ "patientEmail":  patientInfo.email, "patientPassword": patientInfo.password, function(err, result) {
-          if (err) throw err;
-          ;
-        }})
-            .then((result) => {
-                res.send(result)
-                console.log(result)
-            })
-    })
+        const patient = await patientsRegisteredCollection.findOne({ "patientEmail":  patientInfo.email, "patientPassword": patientInfo.password})
+        .then((result) => {
+            res.send(result)
+        })
+        
+
+})
 
 
     app.post('/patientInstantData', (req, res) => {
