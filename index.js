@@ -97,9 +97,11 @@ client.connect(err => {
 
     app.post('/registerPatient', (req, res) => {
         const patient = req.body;
+        console.log(patient)
         patientsRegisteredCollection.insertOne(patient)
             .then(result => {
                 res.send(result)
+                console.log(result);
             })
             .catch(err => {
                 res.send(err)
@@ -144,6 +146,7 @@ client.connect(err => {
         }})
             .then((result) => {
                 res.send(result)
+                console.log(result)
             })
     })
 
