@@ -140,6 +140,7 @@ client.connect(err => {
 
     app.post('/patientInformation', (req, res) => {
         const patientInfo = req.body;
+        
         patientsRegisteredCollection.findOne({ "patientEmail":  patientInfo.email, "patientPassword": patientInfo.password, function(err, result) {
           if (err) throw err;
           ;
