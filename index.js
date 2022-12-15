@@ -96,7 +96,7 @@ client.connect(err => {
 
 
     app.post('/registerPatient', (req, res) => {
-     
+     const patient = req.body
         patientsRegisteredCollection.insertOne(patient)
             .then(result => {
                 res.send(result)
@@ -138,7 +138,7 @@ client.connect(err => {
 
     app.post('/patientInformation', async(req, res) => {
         const patientInfo = req.body;
-        
+        // console.log(patientInfo);
         const patient = await patientsRegisteredCollection.findOne({ "patientEmail":  patientInfo.email, "patientPassword": patientInfo.password})
         .then((result) => {
             res.send(result)
